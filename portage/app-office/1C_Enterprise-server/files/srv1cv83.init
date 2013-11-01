@@ -1,0 +1,21 @@
+#!/sbin/runscript
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	need postgresql
+}
+
+start() {
+	ebegin "Starting 1C:Server"
+	eval start-stop-daemon --start --background --pidfile /var/run/ragent.pid --make-pidfile --user usr1cv83 --exec /opt/1C/v8.3/x86_64/ragent
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping 1C:Server"
+	start-stop-daemon --stop --signal 2 --pidfile /var/run/ragent.pid
+	eend $?
+	sleep 5
+}
+<
